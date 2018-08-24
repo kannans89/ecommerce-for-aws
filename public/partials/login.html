@@ -1,0 +1,17 @@
+<article>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/">E-commerce App</a>
+        </div>
+        
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-hide="signup"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        </ul>
+    </div>
+</nav>
+<h1>LOGIN</h1><br><br>
+<h5>Username:</h5>&nbsp;<input type="text" ng-model="login.username"><b style="color:red">{{ustar}}</b><br><br>
+<h5>Password:</h5>&nbsp;<input type="password" ng-model="login.password"><b style="color:red">{{pstar}}</b><br><br>
+<button ng-click="login()">LOGIN</button>
+</article>

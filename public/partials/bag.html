@@ -1,0 +1,83 @@
+<head>
+    <style>
+        i {
+            border: solid darkgrey;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            color: darkgrey;
+        }
+        .down {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+        .dropbtn {
+            background-color: rgb(26, 26, 26);
+            color: darkgrey;
+            padding: 16px;
+/*            font-size: 16px;*/
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 13px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1;}
+        .dropdown:hover .dropdown-content {display: block;}
+        .dropdown:hover .dropbtn {background-color: black;}
+    </style>
+</head>
+<article>
+    
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/">E-commerce App</a>
+            </div>
+            <ul class="nav navbar-nav" ng-repeat="i in categories">
+                <li><a href="#/{{i.product_category}}">{{i.product_category}}</a></li>
+                
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/cart"> <span class="glyphicon glyphicon-shopping-cart"></span>My cart</a></li>
+                <div class="dropdown" style="float:right;">
+                <button class="dropbtn">Welcome {{current_user}}!&nbsp;<i class="down"></i></button>
+                <div class="dropdown-content">
+                    <li><a href="#/"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+                </div>
+                </div>
+            </ul>
+        </div>
+    </nav>
+<br><br><br><br>
+    <h4><div align="right" style="padding-right:100px;cursor:pointer" ng-click="changeHref()"> <span class="glyphicon glyphicon-shopping-cart"></span>:{{count}}</div></h4>
+    <div ng-repeat="i in bags" style="padding: 0px 40px">
+    
+        <img ng-src="pics/{{i.image}}" width="170" height="170"><br>
+        <h4><u>NAME:</u> {{i.name}}</h4> <br>
+        <h5><u>PRICE:</u> {{i.price}}</h5><br>
+        <h5><u>DESCRIPTION:</u> {{i.description}}</h5><br>
+        <h5>Quantity: <input type="text" ng-model="q[$index]" > &nbsp;&nbsp;&nbsp; <button ng-click="add(i.name,i.price,i.product_category,i.product_guid,$index)">Add to cart</button></h5>
+        <br><hr>
+    </div>
+</article>
