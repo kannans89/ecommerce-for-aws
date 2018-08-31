@@ -1,13 +1,22 @@
 var mysql = require('mysql');
 function EcommerceRepository() {
-    this.register = function (newUser) {
-        var user = [[newUser.customer_guid, newUser.username, newUser.password, newUser.registration_date]];
-        var con = mysql.createConnection({
+
+    function getConnection(){
+
+        return mysql.createConnection({
             host: "localhost",
             user: "root",
             password: "root",
             database: "flipkart"
         });
+
+    }
+
+    this.register = function (newUser) {
+        var user = [[newUser.customer_guid, newUser.username, 
+            newUser.password, newUser.registration_date]];
+        
+            const con = getConnection();
         con.connect(function (err) {
             if (err) throw err;
             console.log("insert Connected!");
@@ -21,12 +30,7 @@ function EcommerceRepository() {
 
     this.authenticateUser=function(user,callback){
         var authenticationResult;
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
+        const con = getConnection();
         con.connect(function (err) {
             var response={"isAuthenticated":false,"id":0};
             if (err) throw err;
@@ -52,12 +56,7 @@ function EcommerceRepository() {
 
     this.getMobiles = function (callback) {
         var mobiles;
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
+        const con = getConnection();
         con.connect(function (err) {
 
             if (err) throw err;
@@ -72,12 +71,7 @@ function EcommerceRepository() {
     }
     this.getBags = function (callback) {
         var bags;
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
+        const con = getConnection();
         con.connect(function (err) {
 
             if (err) throw err;
@@ -92,12 +86,7 @@ function EcommerceRepository() {
     }
     this.getLaptops = function (callback) {
         var laptops;
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
+        const con = getConnection();
         con.connect(function (err) {
 
             if (err) throw err;
@@ -112,13 +101,9 @@ function EcommerceRepository() {
     }
     this.getCartItems = function (callback) {
         var items;
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
-        con.connect(function (err) {
+        const con = getConnection();
+        con
+        .connect(function (err) {
 
             if (err) throw err;
             console.log("select Connected!");
@@ -132,12 +117,7 @@ function EcommerceRepository() {
     }
     this.removeItem = function (no) {
         
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
+        const con = getConnection();
         con.connect(function (err) {
 
             if (err) throw err;
@@ -151,12 +131,7 @@ function EcommerceRepository() {
     }
     this.getCategories = function (callback) {
         var categories;
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
+        const con = getConnection();
         con.connect(function (err) {
 
             if (err) throw err;
@@ -171,12 +146,7 @@ function EcommerceRepository() {
     }
     this.getCustomers = function (callback) {
         var customers;
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
+        const con = getConnection();
         con.connect(function (err) {
 
             if (err) throw err;
@@ -192,12 +162,7 @@ function EcommerceRepository() {
     }
     this.getCart = function (callback) {
         var cart;
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
+        const con = getConnection();
         con.connect(function (err) {
 
             if (err) throw err;
@@ -213,12 +178,7 @@ function EcommerceRepository() {
     }
     this.addToCart=function(lineitem,orgId,customerId){
         var item = [[lineitem.no, lineitem.name, lineitem.price, lineitem.qty,lineitem.totalPrice,lineitem.category,lineitem.product_guid,customerId]];
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
+        const con = getConnection();
         con.connect(function (err) {
             if (err) throw err;
             console.log("insert Connected!");
@@ -231,13 +191,8 @@ function EcommerceRepository() {
     }
 
     this.checkout=function(lineitem,customerId){
+        const con = getConnection();
         var order=[[1,customerId,lineitem.length,'today']];
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "flipkart"
-        });
         con.connect(function (err) {
             if (err) throw err;
             console.log("checkout");

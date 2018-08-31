@@ -1,9 +1,19 @@
+
 var EcommerceService = require('./EcommerceService');
 var svc = new EcommerceService();
+
+
+
 function EcommerceController(app) {
+   
+   
+    
+    
     app.post('/api/organization/customer/register', (req, res) => {
         console.log("REGISTER");
+
         req.on('data', function (newUser) {
+        
             svc.register(JSON.parse(newUser.toString()));
         });
     })
@@ -22,11 +32,13 @@ function EcommerceController(app) {
             })
         })
         .get('/api/organization/customers', (req, res) => {
+            console.log("inside get customers")
             svc.getCustomers((customers) => {
                 res.send(customers);
             })
         })
-        .get('/api/organization/:orgId*?/customer/:customerId*?/getCartItems', (req, res) => {
+        .get('/api/organization/:orgId*?/customer/:customerId*?/getCartItems', 
+             (req, res) => {
             svc.getCartItems((items) => {
                 res.json(items);
             })
@@ -67,6 +79,6 @@ function EcommerceController(app) {
                 svc.checkout(JSON.parse(lineitem.toString()),req.params.customerId);
             });
         })
-        .listen(5557, () => console.log('app listening on port 5557'));
+        ;
 }
 module.exports = EcommerceController;
